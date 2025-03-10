@@ -16,6 +16,54 @@ app.get('/', (c) => {
     return c.text('Hello World!')
 })
 
+
+app.post('/client', async (c) => {
+    const { nombre, email } = await c.req.json()
+    try {
+        const result = await pool.query(`
+            INSERT INTO clientes (nombre, email)
+            VALUES ($1, $2)
+            RETURNING *
+        `, [nombre, email])
+        return c.json(result.rows[0])
+    } catch (error) {
+        console.error('Error adding client:', error)
+        return c.json({ error: 'Failed to add client' }, 500)
+    }
+})
+
+app.post('/product', async (c) => {
+    const { nombre_producto, precio, stock } = await c.req.json()
+    try {
+        const result = await pool.query(`
+            INSERT INTO productos (nombre_producto, precio, stock)
+            VALUES ($1, $2, $3)
+            RETURNING *
+        `, [nombre_producto, precio, stock])
+        return c.json(result.rows[0])
+    } catch (error) {
+        console.error('Error adding product:', error)
+        return c.json({ error: 'Failed to add product' }, 500)
+    }
+})
+
+app.post('/order', async (c) => {
+    const { id_cliente, id_producto, cantidad } = await c.req.json()
+    try {
+        const result = await pool.query(`
+            INSERT INTO pedidos (id_cliente, id_producto, cantidad)
+            VALUES ($1, $2, $3)
+            RETURNING *
+        `, [id_cliente, id_producto, cantidad])
+        return c.json(result.rows[0])
+    } catch (error) {
+        console.error('Error adding order:', error)
+        return c.json({ error: 'Failed to add order' }, 500)
+    }
+})
+
+// Reports
+
 // Get all orders with customer and product information
 app.get('/orders', async (c) => {
     try {
