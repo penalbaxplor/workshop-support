@@ -16,7 +16,6 @@ app.get('/', (c) => {
     return c.text('Hello World!')
 })
 
-
 app.post('/clientes', async (c) => {
     const { nombre, email } = await c.req.json()
     try {
@@ -32,6 +31,18 @@ app.post('/clientes', async (c) => {
     }
 })
 
+app.get('/clientes', async (c) => {
+    try {
+        const result = await pool.query(`
+            SELECT * FROM clientes
+        `)
+        return c.json(result.rows)
+    } catch (error) {
+        console.error('Error fetching clients:', error)
+        return c.json({ error: 'Failed to fetch clients' }, 500)
+    }
+})
+
 app.post('/productos', async (c) => {
     const { nombre_producto, precio, stock } = await c.req.json()
     try {
@@ -44,6 +55,18 @@ app.post('/productos', async (c) => {
     } catch (error) {
         console.error('Error adding product:', error)
         return c.json({ error: 'Failed to add product' }, 500)
+    }
+})
+
+app.get('/productos', async (c) => {
+    try {
+        const result = await pool.query(`
+            SELECT * FROM productos
+        `)
+        return c.json(result.rows)
+    } catch (error) {
+        console.error('Error fetching products:', error)
+        return c.json({ error: 'Failed to fetch products' }, 500)
     }
 })
 
