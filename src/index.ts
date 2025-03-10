@@ -17,7 +17,7 @@ app.get('/', (c) => {
 })
 
 
-app.post('/client', async (c) => {
+app.post('/clientes', async (c) => {
     const { nombre, email } = await c.req.json()
     try {
         const result = await pool.query(`
@@ -32,7 +32,7 @@ app.post('/client', async (c) => {
     }
 })
 
-app.post('/product', async (c) => {
+app.post('/productos', async (c) => {
     const { nombre_producto, precio, stock } = await c.req.json()
     try {
         const result = await pool.query(`
@@ -47,7 +47,7 @@ app.post('/product', async (c) => {
     }
 })
 
-app.post('/order', async (c) => {
+app.post('/pedidos', async (c) => {
     const { id_cliente, id_producto, cantidad } = await c.req.json()
     try {
         const result = await pool.query(`
@@ -62,10 +62,9 @@ app.post('/order', async (c) => {
     }
 })
 
-// Reports
+// Reportes
 
-// Get all orders with customer and product information
-app.get('/orders', async (c) => {
+app.get('/pedidos', async (c) => {
     try {
         const result = await pool.query(`
             SELECT 
@@ -85,8 +84,7 @@ app.get('/orders', async (c) => {
     }
 })
 
-// Get total products sold by product
-app.get('/products/sales', async (c) => {
+app.get('/productos/ventas', async (c) => {
     try {
         const result = await pool.query(`
             SELECT 
