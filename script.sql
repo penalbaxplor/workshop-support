@@ -39,6 +39,7 @@ INSERT INTO pedidos (id_cliente, id_producto, cantidad) VALUES
 
 -- Ver todos los pedidos con información del cliente y producto
 SELECT 
+	pe.id_pedido as id,
     c.nombre,
     p.nombre_producto,
     pe.cantidad,
