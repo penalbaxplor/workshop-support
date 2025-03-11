@@ -91,6 +91,7 @@ app.get('/pedidos', async (c) => {
     try {
         const result = await pool.query(`
             SELECT 
+                pe.id_pedido as id,
                 c.nombre,
                 p.nombre_producto,
                 pe.cantidad,
