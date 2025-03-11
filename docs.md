@@ -58,3 +58,8 @@ Es un formato ligero para intercambiar datos, fácil de leer y escribir para hum
 }
 ```
 
+## ¿Que es Node.js?
+
+Node.js es un entorno de ejecución para JavaScript.
+
+Permite ejecutar código JavaScript en el servidor, fuera del navegador, facilitando la creación de aplicaciones web escalables y de alto rendimiento.
